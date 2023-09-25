@@ -21,7 +21,7 @@ jobs:
         - npm install              # Instala as dependências do projeto
       script:
         - docker login -u beatriz.borges@logcomex.com -p beatriz123
-        - docker build -t beatrizgb/atp-devops:lastest
+        - docker build -t beatrizgb/atp-devops:lastest .
         - docker push beatrizgb/atp-devops:lastest
         - docker pull beatrizgb/atp-devops:lastest
         - docker run -v $PWD/:/app/report/ beatrizgb/atp-devops:lastest
