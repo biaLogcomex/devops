@@ -1,0 +1,37 @@
+language: bash
+
+services:
+  - docker
+
+node_js:
+  - 11.6.0
+
+cache: npm
+
+stages:
+  - build
+  - test
+  - deploy
+
+jobs:
+  include:
+    - stage: build
+      install:
+        - sudo apt-get install npm  # Instala o npm
+        - npm install              # Instala as dependências do projeto
+      script:
+        - docker login -u beatriz.borges@logcomex.com -p beatriz123
+        - docker build -t beatrizgb/atp-devops:lastest
+        - docker push beatrizgb/atp-devops:lastest
+        - docker pull beatrizgb/atp-devops:lastest
+        - docker run -v $PWD/:/app/report/ beatrizgb/atp-devops:lastest
+
+    - stage: test
+      script:
+        - echo "teste"
+        # - docker run -t ghcr.io/zaproxy/zaproxy:stable zap-full-scan.py -t https://aptdevops.netlify.app/ 2> /dev/null; (($? == 2)) && echo 'Done' >&2
+
+
+    - stage: deploy
+      script:
+        - bash ./telegram_notification.sh success
