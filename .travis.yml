@@ -29,7 +29,7 @@ jobs:
     - stage: test
       script:
         - echo "teste"
-        # - docker run -t ghcr.io/zaproxy/zaproxy:stable zap-full-scan.py -t https://aptdevops.netlify.app/ 2> /dev/null; (($? == 2)) && echo 'Done' >&2
+        - docker run -t ghcr.io/zaproxy/zaproxy:stable zap-full-scan.py -t https://atpdevops.netlify.app/ 2> /dev/null; (($? == 2)) && echo 'Done' >&2
 
 
     - stage: deploy
